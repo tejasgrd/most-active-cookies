@@ -2,6 +2,9 @@ package edu.assignment.parser;
 
 import edu.assignment.exception.FileParsingException;
 import edu.assignment.models.Cookie;
+import edu.assignment.runner.CsvCookieApplicationRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -17,6 +20,8 @@ public class CsvFileParser implements FileParser {
 
   private static final int COOKIE_INDEX = 0;
   private static final int COOKIE_DATE_INDEX = 1;
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(CsvFileParser.class);
 
   private static final DateTimeFormatter isoDateTimeFormatter = new DateTimeFormatterBuilder()
       .append(DateTimeFormatter.ISO_DATE_TIME)
@@ -45,13 +50,13 @@ public class CsvFileParser implements FileParser {
               .date(parseUTCStringDate(csvRowArray[COOKIE_DATE_INDEX]))
               .build());
         } catch (DateTimeParseException e) {
-          System.out// TODO add logging
-              .println("Exception while parsing Date for cookie:"
-                  + csvRowArray[COOKIE_INDEX] + " with date: " + csvRowArray[COOKIE_DATE_INDEX] + " , skipping this " +
-                  "row");
+          String errorMessage = String.format("Exception while parsing Date for cookie %s and date %s, " +
+              "skipping this record",csvRowArray[COOKIE_INDEX], csvRowArray[COOKIE_DATE_INDEX] );
+          LOGGER.error(errorMessage);
         }
       }
     }catch (Exception e){
+      LOGGER.error("file parsing exception",e);
       throw new FileParsingException("Exception occurred during file parsing"+e.getMessage());
     }
     return cookies;

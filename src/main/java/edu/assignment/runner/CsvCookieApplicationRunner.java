@@ -30,9 +30,10 @@ public class CsvCookieApplicationRunner extends AbstractApplicationRunner {
 
   private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
   private static final ZoneId UTCZoneId = ZoneId.of("UTC");
+  private static final int MAXIMUM_APPEARANCE_NUMBER = 2;
 
   public CsvCookieApplicationRunner() {
-    super(new CookiesProcessorImpl(2));
+    super(new CookiesProcessorImpl(MAXIMUM_APPEARANCE_NUMBER));
   }
 
   @Override
@@ -53,9 +54,9 @@ public class CsvCookieApplicationRunner extends AbstractApplicationRunner {
     try {
       cmd = parser.parse(options, args);
     } catch (ParseException e) {
-      LOGGER.error("Input arguments are not as expected ",e);
-      formatter.printHelp("most-active-cookies", options);
-      throw new WrongArgumentsException("wrong arguments passed");
+      formatter.printHelp("Arguments supported are ", options);
+      LOGGER.error("The application does not support provided arguments, please provide valid arguments",e);
+      throw new WrongArgumentsException("Invalid arguments passed");
     }
 
     String filePath = cmd.getOptionValue("file");
@@ -86,7 +87,6 @@ public class CsvCookieApplicationRunner extends AbstractApplicationRunner {
       return FileType.valueOf(extension.toUpperCase());
     }catch (IllegalArgumentException ex){
       String errorMessage = String.format("File extension %s is not supported, please provide files with supported formats", extension);
-      LOGGER.error(errorMessage,ex);
       throw new NotSupportedFileTypeException(errorMessage);
     }
   }

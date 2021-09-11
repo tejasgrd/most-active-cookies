@@ -3,21 +3,27 @@ package edu.assignment.runner;
 import edu.assignment.exception.NotSupportedFileTypeException;
 import edu.assignment.exception.WrongArgumentsException;
 import edu.assignment.models.Arguments;
+import edu.assignment.models.Cookie;
 import edu.assignment.models.FileType;
+import edu.assignment.processor.CookiesProcessor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CsvCookieApplicationRunnerTest {
@@ -27,6 +33,15 @@ public class CsvCookieApplicationRunnerTest {
   private static final ZoneId UTCZoneId = ZoneId.of("UTC");
   private String fileName;
   private String date;
+
+  @Mock
+  private CookiesProcessor cookiesProcessor;
+  @Mock
+  Cookie cookie;
+  @Mock
+  OffsetDateTime dateTime;
+  @Mock
+  Cookie resultCookies;
 
   @Before
   public void setup() {
@@ -107,6 +122,20 @@ public class CsvCookieApplicationRunnerTest {
         NotSupportedFileTypeException.class,
         () -> csvCookieApplicationRunner.detectFileType(invalidFileExtensionArgs)
     );
+  }
+
+  /*
+      Test Cases of mostActiveCookiesOnDate is present in CookiesProcessorImplTest
+   */
+  @Test
+  public void findMostActiveCookies_withValidListOfCookies_shouldReturnMostActiveCookies(){
+    when(cookiesProcessor.mostActiveCookiesOnDate(Arrays.asList(cookie), dateTime))
+        .thenReturn(Arrays.asList(resultCookies));
+
+    List<Cookie> result = csvCookieApplicationRunner
+        .findMostActiveCookies(Arrays.asList(cookie),dateTime, cookiesProcessor);
+
+    assertThat(result, is(Arrays.asList(resultCookies)));
   }
 
   private Arguments getValidArgument(){

@@ -7,7 +7,6 @@ import edu.assignment.models.FileType;
 import edu.assignment.parser.FileParser;
 import edu.assignment.parser.FileParserFactory;
 import edu.assignment.processor.CookiesProcessor;
-import edu.assignment.processor.CookiesProcessorImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
