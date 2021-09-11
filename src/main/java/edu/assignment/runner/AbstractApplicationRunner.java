@@ -6,6 +6,8 @@ import edu.assignment.models.Cookie;
 import edu.assignment.models.FileType;
 import edu.assignment.parser.FileParser;
 import edu.assignment.parser.FileParserFactory;
+import edu.assignment.processor.CookiesProcessor;
+import edu.assignment.processor.CookiesProcessorImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,12 +17,18 @@ import java.util.List;
 
 public abstract class AbstractApplicationRunner {
   private static final Logger LOGGER = LoggerFactory.getLogger(AbstractApplicationRunner.class);
+  private CookiesProcessor cookiesProcessor;
+
+
+  public AbstractApplicationRunner(CookiesProcessor cookiesProcessor){
+      this.cookiesProcessor = cookiesProcessor;
+  }
 
   public abstract Arguments parseArguments(String[] args) throws WrongArgumentsException;
 
   public abstract FileType detectFileType(Arguments arguments);
 
-  public abstract List<Cookie> findMostActiveCookies(List<Cookie> cookies, OffsetDateTime date);
+  public abstract List<Cookie> findMostActiveCookies(List<Cookie> cookies, OffsetDateTime date, CookiesProcessor cookiesProcessor);
 
 
   public final void runApplication(String[] args) {
@@ -29,7 +37,7 @@ public abstract class AbstractApplicationRunner {
       FileType fileType = detectFileType(arguments);
       FileParser fileParser = FileParserFactory.getFileParser(fileType);
       List<Cookie> cookies = fileParser.parseFile(arguments.getFileName());
-      List<Cookie> mostActiveCookies = findMostActiveCookies(cookies, arguments.getDate());
+      List<Cookie> mostActiveCookies = findMostActiveCookies(cookies, arguments.getDate(), new CookiesProcessorImpl());
       LOGGER.info("Most active cookies is/are ");
       for(Cookie cookie: mostActiveCookies){
         LOGGER.info(cookie.getCookie());
