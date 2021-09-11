@@ -12,6 +12,11 @@ import java.util.stream.Collectors;
 
 public class CookiesProcessorImpl implements CookiesProcessor{
 
+  private final int maximumAppearance;
+  public CookiesProcessorImpl(int maximumAppearance){
+   this.maximumAppearance = maximumAppearance;
+  }
+
   @Override
   public List<Cookie> mostActiveCookiesOnDate(List<Cookie> cookies, OffsetDateTime date){
     List<Cookie> cookiesForDay = getCookiesOnDate(cookies, date);
@@ -35,7 +40,7 @@ public class CookiesProcessorImpl implements CookiesProcessor{
     }
     Set<Cookie> maxAppeared = new HashSet<>();
     for (Cookie cookie : cookieMap.keySet()) {
-      if (cookieMap.get(cookie) == maxAppearance) {
+      if (cookieMap.get(cookie) == maxAppearance && maxAppearance >= maximumAppearance) {
         maxAppeared.add(cookie);
       }
     }

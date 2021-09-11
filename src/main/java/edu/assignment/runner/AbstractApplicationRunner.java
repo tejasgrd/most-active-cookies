@@ -36,7 +36,7 @@ public abstract class AbstractApplicationRunner {
       FileType fileType = detectFileType(arguments);
       FileParser fileParser = FileParserFactory.getFileParser(fileType);
       List<Cookie> cookies = fileParser.parseFile(arguments.getFileName());
-      List<Cookie> mostActiveCookies = findMostActiveCookies(cookies, arguments.getDate(), new CookiesProcessorImpl());
+      List<Cookie> mostActiveCookies = findMostActiveCookies(cookies, arguments.getDate(), cookiesProcessor);
       LOGGER.info("Most active cookies is/are ");
       for(Cookie cookie: mostActiveCookies){
         LOGGER.info("Most Active Cookie : "+cookie.getCookie());

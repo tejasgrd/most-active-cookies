@@ -31,7 +31,7 @@ public class CsvCookieApplicationRunner extends AbstractApplicationRunner {
   private static final ZoneId UTCZoneId = ZoneId.of("UTC");
 
   public CsvCookieApplicationRunner() {
-    super(new CookiesProcessorImpl());
+    super(new CookiesProcessorImpl(2));
   }
 
   @Override
