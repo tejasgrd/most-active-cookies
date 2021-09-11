@@ -1,7 +1,6 @@
 package edu.assignment.models;
 
 import java.time.OffsetDateTime;
-import java.util.Date;
 
 public class CookieBuilder {
   private String cookie;

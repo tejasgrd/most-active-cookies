@@ -2,7 +2,6 @@ package edu.assignment.parser;
 
 import edu.assignment.exception.FileParsingException;
 import edu.assignment.models.Cookie;
-import edu.assignment.runner.CsvCookieApplicationRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -2,7 +2,6 @@ package edu.assignment.parser;
 
 import edu.assignment.models.Cookie;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
