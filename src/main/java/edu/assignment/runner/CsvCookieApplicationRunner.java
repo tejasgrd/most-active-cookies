@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public class CsvCookieApplicationRunner extends AbstractApplicationRunner {
@@ -52,9 +53,9 @@ public class CsvCookieApplicationRunner extends AbstractApplicationRunner {
     try {
       cmd = parser.parse(options, args);
     } catch (ParseException e) {
-      LOGGER.error("Input arguments are not as expected "+e);
+      LOGGER.error("Input arguments are not as expected ",e);
       formatter.printHelp("most-active-cookies", options);
-      System.exit(1);
+      throw new WrongArgumentsException("wrong arguments passed");
     }
 
     String filePath = cmd.getOptionValue("file");
@@ -62,21 +63,32 @@ public class CsvCookieApplicationRunner extends AbstractApplicationRunner {
 
     Arguments arguments = new Arguments();
     arguments.setFileName(filePath);
-    LocalDate localDate = LocalDate.parse(dateInput, dateTimeFormatter);
-    OffsetDateTime forDate = localDate.atStartOfDay(UTCZoneId).toOffsetDateTime();
-    arguments.setDate(forDate);
-
+    try {
+      LocalDate localDate = LocalDate.parse(dateInput, dateTimeFormatter);
+      OffsetDateTime forDate = localDate.atStartOfDay(UTCZoneId).toOffsetDateTime();
+      arguments.setDate(forDate);
+    }catch (DateTimeParseException ex){
+      LOGGER.error("Parsing Date Exception",ex);
+      throw new WrongArgumentsException("Wrong date argument format, please provide date in yyyy-MM-dd format");
+    }
     return arguments;
   }
 
   @Override
   public FileType detectFileType(Arguments arguments) {
     String fileName = arguments.getFileName();
-    String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
-    if(extension == null){
+    int extensionStartIndex = fileName.lastIndexOf(".");
+    if(extensionStartIndex == -1){
       throw new NotSupportedFileTypeException("File Extension is not provided, please provide file name with extension");
     }
-    return FileType.valueOf(extension.toUpperCase());
+    String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+    try {
+      return FileType.valueOf(extension.toUpperCase());
+    }catch (IllegalArgumentException ex){
+      String errorMessage = String.format("File extension %s is not supported, please provide files with supported formats", extension);
+      LOGGER.error(errorMessage,ex);
+      throw new NotSupportedFileTypeException(errorMessage);
+    }
   }
 
   @Override
