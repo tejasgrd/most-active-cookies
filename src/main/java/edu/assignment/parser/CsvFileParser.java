@@ -1,5 +1,6 @@
 package edu.assignment.parser;
 
+import edu.assignment.exception.FileParsingException;
 import edu.assignment.models.Cookie;
 
 import java.io.BufferedReader;
@@ -31,7 +32,7 @@ public class CsvFileParser implements FileParser {
    * @throws IOException
    */
   @Override
-  public List<Cookie> parseFile(String filePath) throws IOException {
+  public List<Cookie> parseFile(String filePath){
     List<Cookie> cookies = new ArrayList<>();
     try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
       String fileHeader = bufferedReader.readLine();
@@ -50,6 +51,8 @@ public class CsvFileParser implements FileParser {
                   "row");
         }
       }
+    }catch (Exception e){
+      throw new FileParsingException("Exception occurred during file parsing"+e.getMessage());
     }
     return cookies;
   }

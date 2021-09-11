@@ -16,8 +16,8 @@ import java.util.List;
 
 public abstract class AbstractApplicationRunner {
   private static final Logger LOGGER = LoggerFactory.getLogger(AbstractApplicationRunner.class);
-  private CookiesProcessor cookiesProcessor;
 
+  private CookiesProcessor cookiesProcessor;
 
   public AbstractApplicationRunner(CookiesProcessor cookiesProcessor){
       this.cookiesProcessor = cookiesProcessor;
@@ -39,11 +39,10 @@ public abstract class AbstractApplicationRunner {
       List<Cookie> mostActiveCookies = findMostActiveCookies(cookies, arguments.getDate(), new CookiesProcessorImpl());
       LOGGER.info("Most active cookies is/are ");
       for(Cookie cookie: mostActiveCookies){
-        LOGGER.info(cookie.getCookie());
+        LOGGER.info("Most Active Cookie : "+cookie.getCookie());
       }
-      LOGGER.info("Application Processing Ends");
     } catch (Exception e) {
-
+      LOGGER.error("Application halted due to error :"+e.getMessage());
     }
   }
 }

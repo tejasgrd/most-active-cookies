@@ -1,7 +1,7 @@
 package edu.assignment.runner;
 
+import edu.assignment.exception.NotSupportedFileTypeException;
 import edu.assignment.exception.WrongArgumentsException;
-import edu.assignment.executor.CookieExecutor;
 import edu.assignment.models.Arguments;
 import edu.assignment.models.Cookie;
 import edu.assignment.models.FileType;
@@ -72,7 +72,10 @@ public class CsvCookieApplicationRunner extends AbstractApplicationRunner {
   @Override
   public FileType detectFileType(Arguments arguments) {
     String fileName = arguments.getFileName();
-    String extension = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+    String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+    if(extension == null){
+      throw new NotSupportedFileTypeException("File Extension is not provided, please provide file name with extension");
+    }
     return FileType.valueOf(extension.toUpperCase());
   }
 

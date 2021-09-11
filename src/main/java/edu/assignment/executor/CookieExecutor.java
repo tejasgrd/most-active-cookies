@@ -10,9 +10,10 @@ public class CookieExecutor {
   private static final Logger LOGGER = LoggerFactory.getLogger(CookieExecutor.class);
 
   public static void main(String[] args) {
-    LOGGER.info("Cookie  start");
+    LOGGER.info("Most Active Cookie Application START");
     AbstractApplicationRunner applicationRunner = new CsvCookieApplicationRunner();
     applicationRunner.runApplication(args);
+    LOGGER.info("Most Active Cookie Application END");
   }
 
 }
