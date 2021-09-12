@@ -83,8 +83,9 @@ public class CookiesProcessorImplTest {
   private List<Cookie> getMultipleMostActiveCookies(int size, OffsetDateTime dateTime) {
     List<Cookie> cookies = new ArrayList<>();
     int firstMostActiveCount, secondMostActiveCount, thirdMostActiveCount;
-    firstMostActiveCount = secondMostActiveCount = thirdMostActiveCount = faker.random().nextInt(1,
+    firstMostActiveCount = secondMostActiveCount = thirdMostActiveCount = faker.random().nextInt(2,
         size / multipleActiveCookiesSize);
+
     String firstCookie = faker.bothify("????####asz???a?a");
     String secondCookie = faker.bothify("????####zxc???a?a");
     String thirdCookie = faker.bothify("????####uio???a?a");
