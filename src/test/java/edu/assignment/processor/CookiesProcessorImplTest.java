@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @RunWith(MockitoJUnitRunner.class)
 public class CookiesProcessorImplTest {
 
-  private final Faker faker = new Faker();
+  private Faker faker;
   int numberOfCookies;
   int activeCookiesNumber;
   private CookiesProcessor cookiesProcessor;
@@ -31,7 +31,7 @@ public class CookiesProcessorImplTest {
     numberOfCookies = 15;
     activeCookiesNumber = 4;
     multipleActiveCookiesSize = 4;
-
+    faker = new Faker();
   }
 
   @Test
