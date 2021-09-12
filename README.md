@@ -25,3 +25,5 @@ The above generated jar file in target folder can be run using java as follows
 ```
 $ java -jar cookies-processor-1.0-jar-with-dependencies.jar -f cookie_log.csv -d 2018-12-09
 ```
+
+## High level design
