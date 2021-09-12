@@ -9,13 +9,13 @@ make sure you can run **java** and **mvn** on your terminal/command-prompt.
 
 ## Build
 ### maven
-On root directory run the below command to generate jar file for this application
+On root directory of repository, run the below command to generate jar file for this application
 ``` 
 $ mvn clean install
 $ mvn clean compile assembly:single
 ```
-Above command will generate distributable jar file with all the required dependencies in target folder named **cookies-processor-1.0.jar**.
-Location is like this in repo directory.
+Above command will generate distributable jar file with all the required dependencies in target folder named **cookies-processor-1.0-jar-with-dependencies.jar**.
+Location will be like below.
 ```
 most-active-cookies/target/cookies-processor-1.0-jar-with-dependencies.jar
 ```
