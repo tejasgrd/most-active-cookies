@@ -9,7 +9,7 @@ make sure you can run **java** and **mvn** on your terminal/command-prompt.
 
 ## Build
 ### maven
-On root directory of repository, run the below command to generate jar file for this application
+Inside root directory of repository, run the below command to generate jar file for this application
 ``` 
 $ mvn clean install
 $ mvn clean compile assembly:single
