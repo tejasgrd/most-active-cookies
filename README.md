@@ -27,3 +27,5 @@ $ java -jar cookies-processor-1.0-jar-with-dependencies.jar -f cookie_log.csv -d
 ```
 
 ## High level design
+![code-design-1](https://user-images.githubusercontent.com/50840332/132972117-4b756087-bdd0-4447-a084-e823ccbc9057.png)
+
