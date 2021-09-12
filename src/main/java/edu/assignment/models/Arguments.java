@@ -2,6 +2,9 @@ package edu.assignment.models;
 
 import java.time.OffsetDateTime;
 
+/**
+ * The {@code Arguments} class holds command line arguments provided
+ */
 public class Arguments {
   private String fileName;
   private OffsetDateTime date;

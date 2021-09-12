@@ -24,6 +24,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+/**
+ *  The {@code CsvCookieApplicationRunner} The class implements all the required method to parse scv files with cookies
+ *  and find most active cookie
+ */
 public class CsvCookieApplicationRunner extends AbstractApplicationRunner {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CsvCookieApplicationRunner.class);
@@ -36,8 +40,14 @@ public class CsvCookieApplicationRunner extends AbstractApplicationRunner {
     super(new CookiesProcessorImpl(MAXIMUM_APPEARANCE_NUMBER));
   }
 
+  /**
+   * This method will parse all command line arguments and convert it into Arguments object
+   * It will log and throw exception if any invalid or missing argument is provided
+   * @param args
+   * @return Arguments
+   */
   @Override
-  public Arguments parseArguments(String[] args) throws WrongArgumentsException {
+  public Arguments parseArguments(String[] args){
 
     Options options = new Options();
     Option file = new Option("f", "file", true, "input file path");
@@ -75,6 +85,12 @@ public class CsvCookieApplicationRunner extends AbstractApplicationRunner {
     return arguments;
   }
 
+  /**
+   * This method will detect file type from file extension.
+   * It will throw NotSupportedFileTypeException if given file type is not supported ny application
+   * @param arguments
+   * @return FileType
+   */
   @Override
   public FileType detectFileType(Arguments arguments) {
     String fileName = arguments.getFileName();
@@ -93,6 +109,13 @@ public class CsvCookieApplicationRunner extends AbstractApplicationRunner {
     }
   }
 
+  /**
+   * This method will the CookiesProcessor Implementation for CSV files and will return most active cookies.
+   * @param cookies
+   * @param date
+   * @param cookiesProcessor
+   * @return
+   */
   @Override
   public List<Cookie> findMostActiveCookies(List<Cookie> cookies, OffsetDateTime date,
                                             CookiesProcessor cookiesProcessor) {

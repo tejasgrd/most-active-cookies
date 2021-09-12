@@ -22,7 +22,7 @@ public abstract class AbstractApplicationRunner {
     this.cookiesProcessor = cookiesProcessor;
   }
 
-  public abstract Arguments parseArguments(String[] args) throws WrongArgumentsException;
+  public abstract Arguments parseArguments(String[] args);
 
   public abstract FileType detectFileType(Arguments arguments);
 

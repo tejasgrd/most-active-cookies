@@ -14,7 +14,9 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * The {@code CsvFileParser} Csv file parser to read and convert CSV file with cookies to Cookie object
+ */
 public class CsvFileParser implements FileParser {
 
   private static final int COOKIE_INDEX = 0;

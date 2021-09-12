@@ -3,6 +3,9 @@ package edu.assignment.models;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
+/**
+ * The {@code Cookie} class holds Cookie value and Date
+ */
 public class Cookie {
   private String cookie;
   private OffsetDateTime date;

@@ -10,6 +10,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ *  The {@code CookiesProcessorImpl} Class to process list of cookies and find most active cookie for the day
+ */
 public class CookiesProcessorImpl implements CookiesProcessor {
 
   private final int maximumAppearance;
@@ -18,6 +21,16 @@ public class CookiesProcessorImpl implements CookiesProcessor {
     this.maximumAppearance = maximumAppearance;
   }
 
+  /**
+   * This method will receive list of cookies and date to find most active cookie for that day.
+   * The most active cookies are the one which appeared maximum number of time in a day.
+   * If all cookies provided appeared only once in a given date then there is(are) no most active cookie(s) as all the
+   * cookies are same has appearance. However this default behaviour can be configured by providing maximumAppearance
+   * value , by default it is 2 that is for cookie to be most active in a day it should al least appear twice in a day
+   * @param cookies
+   * @param date
+   * @return
+   */
   @Override
   public List<Cookie> mostActiveCookiesOnDate(List<Cookie> cookies, OffsetDateTime date) {
     List<Cookie> cookiesForDay = getCookiesOnDate(cookies, date);
