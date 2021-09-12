@@ -17,7 +17,7 @@ $ mvn clean compile assembly:single
 Above command will generate distributable jar file with all the required dependencies in target folder named **cookies-processor-1.0.jar**.
 Location is like this in repo directory.
 ```
-most-active-cookies/target/cookies-processor-1.0.jar
+most-active-cookies/target/cookies-processor-1.0-jar-with-dependencies.jar
 ```
 
 ## Run
