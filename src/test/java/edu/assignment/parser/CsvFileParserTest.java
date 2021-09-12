@@ -24,28 +24,28 @@ public class CsvFileParserTest {
 
   @Test
   public void parseFile_withValidFile_shouldReturnCookiesList() {
-    String filePath = "src/test/resources/files/cookies-1.csv";
+    String filePath = "test-classes/files/cookies-1.csv";
     List<Cookie> cookiesList = csvFileParser.parseFile(filePath);
     assertTrue(cookiesList.size() == 8);
   }
 
   @Test
   public void parseFile_withInvalidFilePath_shouldThrowException() {
-    String invalidFilePath = "src/test/resources/files2/cookies-1.csv";
+    String invalidFilePath = "test-classes/files2/cookies-1.csv";
     assertThrows(
         FileParsingException.class, () -> csvFileParser.parseFile(invalidFilePath));
   }
 
   @Test
   public void parseFile_withSomeCorruptDateRecords_shouldParseRemainingCorrectly() {
-    String filePath = "src/test/resources/files/cookies-with-3-corrupt-dates.csv";
+    String filePath = "test-classes/files/cookies-with-3-corrupt-dates.csv";
     List<Cookie> cookiesList = csvFileParser.parseFile(filePath);
     assertTrue(cookiesList.size() == 5);
   }
 
   @Test
   public void parseFile_withEmptyFile_shouldNotReturnAnyCookies() {
-    String filePath = "src/test/resources/files/cookies-with-no-records.csv";
+    String filePath = "test-classes/files/cookies-with-no-records.csv";
     List<Cookie> cookiesList = csvFileParser.parseFile(filePath);
     assertTrue(cookiesList.size() == 0);
   }
