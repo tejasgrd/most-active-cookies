@@ -36,3 +36,10 @@ Below diagram shows the high level class design of the applicaion. When jar runs
 
 ![code-design-1](https://user-images.githubusercontent.com/50840332/132972117-4b756087-bdd0-4447-a084-e823ccbc9057.png)
 
+## History
+
+Version 1.0 (2021-09-12) - Most Active Cookies first fully working release.
+
+## Credits
+
+Developer - Tejas Garde (@tejasgrd)
