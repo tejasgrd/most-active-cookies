@@ -5,7 +5,7 @@ import edu.assignment.models.FileType;
 
 public class FileParserFactory {
 
-  public static FileParser getFileParser(FileType fileType){
+  public static FileParser getFileParser(FileType fileType) {
     switch (fileType) {
       case CSV:
         return new CsvFileParser();

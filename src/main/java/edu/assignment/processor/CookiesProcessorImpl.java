@@ -10,15 +10,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class CookiesProcessorImpl implements CookiesProcessor{
+public class CookiesProcessorImpl implements CookiesProcessor {
 
   private final int maximumAppearance;
-  public CookiesProcessorImpl(int maximumAppearance){
-   this.maximumAppearance = maximumAppearance;
+
+  public CookiesProcessorImpl(int maximumAppearance) {
+    this.maximumAppearance = maximumAppearance;
   }
 
   @Override
-  public List<Cookie> mostActiveCookiesOnDate(List<Cookie> cookies, OffsetDateTime date){
+  public List<Cookie> mostActiveCookiesOnDate(List<Cookie> cookies, OffsetDateTime date) {
     List<Cookie> cookiesForDay = getCookiesOnDate(cookies, date);
     return searchForMostActiveCookies(cookiesForDay);
   }

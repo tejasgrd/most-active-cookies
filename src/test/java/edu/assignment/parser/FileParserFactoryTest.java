@@ -18,7 +18,7 @@ public class FileParserFactoryTest {
   FileParser fileParser;
 
   @Test
-  public void getFileParser_withValidFileType_shouldReturnFileParser(){
+  public void getFileParser_withValidFileType_shouldReturnFileParser() {
     FileType fileType = FileType.CSV;
 
     try (MockedStatic<FileParserFactory> factoryMockedStatic = Mockito.mockStatic(FileParserFactory.class)) {

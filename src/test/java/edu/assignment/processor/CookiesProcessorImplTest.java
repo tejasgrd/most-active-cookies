@@ -49,7 +49,7 @@ public class CookiesProcessorImplTest {
   }
 
   @Test
-  public void mostActiveCookiesOnDate_withNoRepetition_shouldNotReturnAnyCookie(){
+  public void mostActiveCookiesOnDate_withNoRepetition_shouldNotReturnAnyCookie() {
     List<Cookie> listCookies = getDifferentCookiesOnSameDate(numberOfCookies, onDate);
     List<Cookie> activeCookies = cookiesProcessor.mostActiveCookiesOnDate(listCookies, onDate);
     assertTrue(activeCookies.size() == 0);
@@ -82,36 +82,37 @@ public class CookiesProcessorImplTest {
 
   private List<Cookie> getMultipleMostActiveCookies(int size, OffsetDateTime dateTime) {
     List<Cookie> cookies = new ArrayList<>();
-    int firstMostActiveCount , secondMostActiveCount, thirdMostActiveCount ;
-    firstMostActiveCount = secondMostActiveCount = thirdMostActiveCount = faker.random().nextInt(1, size / multipleActiveCookiesSize);
+    int firstMostActiveCount, secondMostActiveCount, thirdMostActiveCount;
+    firstMostActiveCount = secondMostActiveCount = thirdMostActiveCount = faker.random().nextInt(1,
+        size / multipleActiveCookiesSize);
     String firstCookie = faker.bothify("????####asz???a?a");
     String secondCookie = faker.bothify("????####zxc???a?a");
     String thirdCookie = faker.bothify("????####uio???a?a");
-    while(size > 0 ){
-      if(firstMostActiveCount > 0 ){
+    while (size > 0) {
+      if (firstMostActiveCount > 0) {
         cookies.add(Cookie.builder()
             .cookie(firstCookie)
             .date(dateTime)
             .build());
         size--;
         firstMostActiveCount--;
-      }else if(secondMostActiveCount > 0 ){
+      } else if (secondMostActiveCount > 0) {
         cookies.add(Cookie.builder()
             .cookie(secondCookie)
             .date(dateTime)
             .build());
         size--;
         secondMostActiveCount--;
-      }else if(thirdMostActiveCount > 0 ){
+      } else if (thirdMostActiveCount > 0) {
         cookies.add(Cookie.builder()
             .cookie(thirdCookie)
             .date(dateTime)
             .build());
         size--;
         thirdMostActiveCount--;
-      }else {
+      } else {
         cookies.add(Cookie.builder()
-            .cookie( faker.bothify("????####tyr???a?a"))
+            .cookie(faker.bothify("????####tyr???a?a"))
             .date(OffsetDateTime.now())
             .build());
         size--;
@@ -121,7 +122,7 @@ public class CookiesProcessorImplTest {
   }
 
 
-  private List<Cookie> getDifferentCookiesOnSameDate(int size,OffsetDateTime dateTime) {
+  private List<Cookie> getDifferentCookiesOnSameDate(int size, OffsetDateTime dateTime) {
     List<Cookie> cookies = new ArrayList<>();
     while (size > 0) {
       cookies.add(Cookie.builder()

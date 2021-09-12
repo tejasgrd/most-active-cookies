@@ -37,16 +37,16 @@ public class CsvFileParserTest {
   }
 
   @Test
-  public void parseFile_withSomeCorruptDateRecords_shouldParseRemainingCorrectly(){
+  public void parseFile_withSomeCorruptDateRecords_shouldParseRemainingCorrectly() {
     String filePath = "src/test/resources/files/cookies-with-3-corrupt-dates.csv";
     List<Cookie> cookiesList = csvFileParser.parseFile(filePath);
-    assertTrue(cookiesList.size() == 5 );
+    assertTrue(cookiesList.size() == 5);
   }
 
   @Test
-  public void parseFile_withEmptyFile_shouldNotReturnAnyCookies(){
+  public void parseFile_withEmptyFile_shouldNotReturnAnyCookies() {
     String filePath = "src/test/resources/files/cookies-with-no-records.csv";
     List<Cookie> cookiesList = csvFileParser.parseFile(filePath);
-    assertTrue(cookiesList.size() == 0 );
+    assertTrue(cookiesList.size() == 0);
   }
 }

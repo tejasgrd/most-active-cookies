@@ -36,7 +36,7 @@ public class CsvFileParser implements FileParser {
    * @throws IOException
    */
   @Override
-  public List<Cookie> parseFile(String filePath){
+  public List<Cookie> parseFile(String filePath) {
     List<Cookie> cookies = new ArrayList<>();
     try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
       String fileHeader = bufferedReader.readLine();
@@ -50,13 +50,13 @@ public class CsvFileParser implements FileParser {
               .build());
         } catch (DateTimeParseException e) {
           String errorMessage = String.format("Exception while parsing Date for cookie %s and date %s, " +
-              "skipping this record",csvRowArray[COOKIE_INDEX], csvRowArray[COOKIE_DATE_INDEX] );
+              "skipping this record", csvRowArray[COOKIE_INDEX], csvRowArray[COOKIE_DATE_INDEX]);
           LOGGER.error(errorMessage);
         }
       }
-    }catch (Exception e){
-      LOGGER.error("file parsing exception",e);
-      throw new FileParsingException("Exception occurred during file parsing"+e.getMessage());
+    } catch (Exception e) {
+      LOGGER.error("file parsing exception", e);
+      throw new FileParsingException("Exception occurred during file parsing" + e.getMessage());
     }
     return cookies;
   }

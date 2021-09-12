@@ -55,7 +55,7 @@ public class CsvCookieApplicationRunner extends AbstractApplicationRunner {
       cmd = parser.parse(options, args);
     } catch (ParseException e) {
       formatter.printHelp("Arguments supported are ", options);
-      LOGGER.error("The application does not support provided arguments, please provide valid arguments",e);
+      LOGGER.error("The application does not support provided arguments, please provide valid arguments", e);
       throw new WrongArgumentsException("Invalid arguments passed");
     }
 
@@ -68,8 +68,8 @@ public class CsvCookieApplicationRunner extends AbstractApplicationRunner {
       LocalDate localDate = LocalDate.parse(dateInput, dateTimeFormatter);
       OffsetDateTime forDate = localDate.atStartOfDay(UTCZoneId).toOffsetDateTime();
       arguments.setDate(forDate);
-    }catch (DateTimeParseException ex){
-      LOGGER.error("Parsing Date Exception",ex);
+    } catch (DateTimeParseException ex) {
+      LOGGER.error("Parsing Date Exception", ex);
       throw new WrongArgumentsException("Wrong date argument format, please provide date in yyyy-MM-dd format");
     }
     return arguments;
@@ -79,14 +79,16 @@ public class CsvCookieApplicationRunner extends AbstractApplicationRunner {
   public FileType detectFileType(Arguments arguments) {
     String fileName = arguments.getFileName();
     int extensionStartIndex = fileName.lastIndexOf(".");
-    if(extensionStartIndex == -1){
-      throw new NotSupportedFileTypeException("File Extension is not provided, please provide file name with extension");
+    if (extensionStartIndex == -1) {
+      throw new NotSupportedFileTypeException("File Extension is not provided, please provide file name with " +
+          "extension");
     }
     String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
     try {
       return FileType.valueOf(extension.toUpperCase());
-    }catch (IllegalArgumentException ex){
-      String errorMessage = String.format("File extension %s is not supported, please provide files with supported formats", extension);
+    } catch (IllegalArgumentException ex) {
+      String errorMessage = String.format("File extension %s is not supported, please provide files with supported " +
+          "formats", extension);
       throw new NotSupportedFileTypeException(errorMessage);
     }
   }

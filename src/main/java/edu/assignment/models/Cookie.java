@@ -7,24 +7,24 @@ public class Cookie {
   private String cookie;
   private OffsetDateTime date;
 
-  public String getCookie() {
-    return cookie;
+  public static CookieBuilder builder() {
+    return new CookieBuilder();
   }
 
-  public OffsetDateTime getDate() {
-    return date;
+  public String getCookie() {
+    return cookie;
   }
 
   public void setCookie(String cookie) {
     this.cookie = cookie;
   }
 
-  public void setDate(OffsetDateTime date) {
-    this.date = date;
+  public OffsetDateTime getDate() {
+    return date;
   }
 
-  public static CookieBuilder builder(){
-    return new CookieBuilder();
+  public void setDate(OffsetDateTime date) {
+    this.date = date;
   }
 
   @Override

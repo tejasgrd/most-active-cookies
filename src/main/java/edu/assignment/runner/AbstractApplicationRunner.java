@@ -18,15 +18,16 @@ public abstract class AbstractApplicationRunner {
 
   private CookiesProcessor cookiesProcessor;
 
-  public AbstractApplicationRunner(CookiesProcessor cookiesProcessor){
-      this.cookiesProcessor = cookiesProcessor;
+  public AbstractApplicationRunner(CookiesProcessor cookiesProcessor) {
+    this.cookiesProcessor = cookiesProcessor;
   }
 
   public abstract Arguments parseArguments(String[] args) throws WrongArgumentsException;
 
   public abstract FileType detectFileType(Arguments arguments);
 
-  public abstract List<Cookie> findMostActiveCookies(List<Cookie> cookies, OffsetDateTime date, CookiesProcessor cookiesProcessor);
+  public abstract List<Cookie> findMostActiveCookies(List<Cookie> cookies, OffsetDateTime date,
+                                                     CookiesProcessor cookiesProcessor);
 
 
   public final void runApplication(String[] args) {
@@ -37,11 +38,11 @@ public abstract class AbstractApplicationRunner {
       List<Cookie> cookies = fileParser.parseFile(arguments.getFileName());
       List<Cookie> mostActiveCookies = findMostActiveCookies(cookies, arguments.getDate(), cookiesProcessor);
       LOGGER.info("Most active cookies is/are ");
-      for(Cookie cookie: mostActiveCookies){
-        LOGGER.info("Most Active Cookie : "+cookie.getCookie());
+      for (Cookie cookie : mostActiveCookies) {
+        LOGGER.info("Most Active Cookie : " + cookie.getCookie());
       }
     } catch (Exception e) {
-      LOGGER.error("Application halted due to error :"+e.getMessage());
+      LOGGER.error("Application halted due to error :" + e.getMessage());
     }
   }
 }

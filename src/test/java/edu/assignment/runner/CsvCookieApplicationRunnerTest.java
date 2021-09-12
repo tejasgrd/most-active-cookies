@@ -28,20 +28,19 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class CsvCookieApplicationRunnerTest {
 
-  private CsvCookieApplicationRunner csvCookieApplicationRunner;
   private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
   private static final ZoneId UTCZoneId = ZoneId.of("UTC");
-  private String fileName;
-  private String date;
-
-  @Mock
-  private CookiesProcessor cookiesProcessor;
   @Mock
   Cookie cookie;
   @Mock
   OffsetDateTime dateTime;
   @Mock
   Cookie resultCookies;
+  private CsvCookieApplicationRunner csvCookieApplicationRunner;
+  private String fileName;
+  private String date;
+  @Mock
+  private CookiesProcessor cookiesProcessor;
 
   @Before
   public void setup() {
@@ -51,8 +50,8 @@ public class CsvCookieApplicationRunnerTest {
   }
 
   @Test
-  public void parseArguments_withValidArguments_shouldReturnArgumentObject(){
-    String[] arguments = new String[] {"-f",fileName,"-d",date};
+  public void parseArguments_withValidArguments_shouldReturnArgumentObject() {
+    String[] arguments = new String[]{"-f", fileName, "-d", date};
     LocalDate localDate = LocalDate.parse(date, dateTimeFormatter);
     OffsetDateTime forDate = localDate.atStartOfDay(UTCZoneId).toOffsetDateTime();
     Arguments argumentsObj = csvCookieApplicationRunner.parseArguments(arguments);
@@ -62,8 +61,8 @@ public class CsvCookieApplicationRunnerTest {
   }
 
   @Test
-  public void parseArguments_withArgsInReverseOrder_shouldReturnArgumentObject(){
-    String[] arguments = new String[] {"-d",date,"-f",fileName};
+  public void parseArguments_withArgsInReverseOrder_shouldReturnArgumentObject() {
+    String[] arguments = new String[]{"-d", date, "-f", fileName};
     LocalDate localDate = LocalDate.parse(date, dateTimeFormatter);
     OffsetDateTime forDate = localDate.atStartOfDay(UTCZoneId).toOffsetDateTime();
     Arguments argumentsObj = csvCookieApplicationRunner.parseArguments(arguments);
@@ -92,7 +91,7 @@ public class CsvCookieApplicationRunnerTest {
 
   @Test
   public void parseArguments_withWrongDateFormat_shouldThrowException() {
-    String[] arguments = new String[] {"-d","01-03-2021","-f",fileName};
+    String[] arguments = new String[]{"-d", "01-03-2021", "-f", fileName};
     assertThrows(
         WrongArgumentsException.class,
         () -> csvCookieApplicationRunner.parseArguments(arguments)
@@ -100,14 +99,14 @@ public class CsvCookieApplicationRunnerTest {
   }
 
   @Test
-  public void detectFileType_withValidFileExtension_shouldReturnFileType(){
+  public void detectFileType_withValidFileExtension_shouldReturnFileType() {
     Arguments arguments = getValidArgument();
     FileType fileType = csvCookieApplicationRunner.detectFileType(arguments);
     assertThat(fileType, is(FileType.CSV));
   }
 
   @Test
-  public void detectFileType_withoutFileExtension_shouldThrowException(){
+  public void detectFileType_withoutFileExtension_shouldThrowException() {
     Arguments invalidArguments = getArgumentsWithNoFileExtension();
     assertThrows(
         NotSupportedFileTypeException.class,
@@ -116,7 +115,7 @@ public class CsvCookieApplicationRunnerTest {
   }
 
   @Test
-  public void detectFileType_withInvalidFileExtension_shouldThrowException(){
+  public void detectFileType_withInvalidFileExtension_shouldThrowException() {
     Arguments invalidFileExtensionArgs = getArgumentsWithInvalidFileExtension();
     assertThrows(
         NotSupportedFileTypeException.class,
@@ -128,31 +127,31 @@ public class CsvCookieApplicationRunnerTest {
       Test Cases of mostActiveCookiesOnDate is present in CookiesProcessorImplTest
    */
   @Test
-  public void findMostActiveCookies_withValidListOfCookies_shouldReturnMostActiveCookies(){
+  public void findMostActiveCookies_withValidListOfCookies_shouldReturnMostActiveCookies() {
     when(cookiesProcessor.mostActiveCookiesOnDate(Arrays.asList(cookie), dateTime))
         .thenReturn(Arrays.asList(resultCookies));
 
     List<Cookie> result = csvCookieApplicationRunner
-        .findMostActiveCookies(Arrays.asList(cookie),dateTime, cookiesProcessor);
+        .findMostActiveCookies(Arrays.asList(cookie), dateTime, cookiesProcessor);
 
     assertThat(result, is(Arrays.asList(resultCookies)));
   }
 
-  private Arguments getValidArgument(){
+  private Arguments getValidArgument() {
     Arguments arguments = new Arguments();
     arguments.setFileName("cookies.csv");
     arguments.setDate(OffsetDateTime.now());
     return arguments;
   }
 
-  private Arguments getArgumentsWithNoFileExtension(){
+  private Arguments getArgumentsWithNoFileExtension() {
     Arguments arguments = new Arguments();
     arguments.setFileName("cookies-files");
     arguments.setDate(OffsetDateTime.now());
     return arguments;
   }
 
-  private Arguments getArgumentsWithInvalidFileExtension(){
+  private Arguments getArgumentsWithInvalidFileExtension() {
     Arguments arguments = new Arguments();
     arguments.setFileName("cookies-files.json");
     arguments.setDate(OffsetDateTime.now());
